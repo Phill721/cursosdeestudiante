@@ -1,5 +1,6 @@
 package com.bamboo.cursosdeestudiante.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CollectionTable;
@@ -12,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -52,6 +55,14 @@ public class Curso {
 
     @Column(nullable = false)
     private int cupo;
+
+    @ManyToMany
+    @JoinTable(
+        name = "curso_instructor",
+        joinColumns = @JoinColumn(name = "curso_id"),
+        inverseJoinColumns = @JoinColumn(name = "instructor_id")
+    )
+    private List<Instructor> instructor = new ArrayList<>();
 
     @Transient
     private List<EstudianteDTO> inscritos;
