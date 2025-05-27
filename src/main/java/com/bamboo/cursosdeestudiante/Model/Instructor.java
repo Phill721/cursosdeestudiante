@@ -11,7 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 @Entity
 @Table(name = "Instructor")
 @Data
@@ -22,6 +27,6 @@ public class Instructor extends Usuario{
     @Column(length = 50, nullable = false)
     private String especialidad;
 
-    @ManyToMany(mappedBy = "instructores")
+    @ManyToMany(mappedBy = "instructor")
     private List<Curso> cursos = new ArrayList<>();
 }
